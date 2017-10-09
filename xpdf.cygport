@@ -1,6 +1,6 @@
 NAME="xpdf"
 VERSION=4.00
-RELEASE=1
+RELEASE=2
 CATEGORY="X11 Doc"
 SUMMARY="An open source viewer for Portable Document Format (PDF) files"
 DESCRIPTION="Xpdf is an open source viewer for Portable Document Format (PDF)
@@ -40,6 +40,7 @@ CYGCMAKE_ARGS="
 
 PATCH_URI="xpdfrc.patch"
 PATCH_URI+=" libpaper.patch"
+PATCH_URI+=" xpdf-4.00-remote-2017-sep-21.patch"
 
 DEPEND="cmake libQt5Core-devel libQt5Gui-devel libpaper-devel libfreetype-devel"
 
