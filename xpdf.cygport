@@ -1,0 +1,86 @@
+NAME="xpdf"
+VERSION=4.00
+RELEASE=1
+CATEGORY="X11 Doc"
+SUMMARY="An open source viewer for Portable Document Format (PDF) files"
+DESCRIPTION="Xpdf is an open source viewer for Portable Document Format (PDF)
+files.  (These are also sometimes called 'Acrobat' files, from the
+name of Adobe's PDF software.)  The Xpdf viewer uses the Qt
+cross-platform GUI toolkit.  The Xpdf project also includes a PDF text
+extractor, PDF-to-PostScript converter, and various other utilities.
+These are not included in the Cygwin xpdf package because poppler
+provides similar utilities."
+
+HOMEPAGE="http://www.xpdfreader.com/"
+SRC_URI="
+	${HOMEPAGE}/dl/${P}.tar.gz
+	${HOMEPAGE}/dl/${PN}-arabic.tar.gz
+	${HOMEPAGE}/dl/${PN}-chinese-simplified.tar.gz
+	${HOMEPAGE}/dl/${PN}-chinese-traditional.tar.gz
+	${HOMEPAGE}/dl/${PN}-cyrillic.tar.gz
+	${HOMEPAGE}/dl/${PN}-greek.tar.gz
+	${HOMEPAGE}/dl/${PN}-hebrew.tar.gz
+	${HOMEPAGE}/dl/${PN}-japanese.tar.gz
+	${HOMEPAGE}/dl/${PN}-korean.tar.gz
+	${HOMEPAGE}/dl/${PN}-latin2.tar.gz
+	${HOMEPAGE}/dl/${PN}-thai.tar.gz
+	${HOMEPAGE}/dl/${PN}-turkish.tar.gz
+"
+
+inherit cmake
+
+# Don't try to use lcms2; it's not supported in the open-source version.
+CYGCMAKE_ARGS="
+	-DUSE_LIBPAPER=ON
+	-DA4_PAPER=ON
+	-DOPI_SUPPORT=ON
+	-DSPLASH_CMYK=ON
+	-DSYSTEM_XPDFRC=/etc/xpdfrc
+"
+
+# PATCH_URI="
+#   xpdf.xpdfrc.patch
+# "
+
+DEPEND="libQt5Core-devel libQt5Gui-devel libpaper-devel libfreetype-devel"
+
+REQUIRES="libQt5Svg5"		# Needed for the toolbar icons.
+
+src_install() {
+	cd ${B}
+	cyginstall
+	insinto	/etc
+	newins ${S}/doc/sample-xpdfrc xpdfrc
+
+	# For the following deletions see --> http://cygwin.com/ml/cygwin-apps/2012-02/msg00148.html
+	rm -fr ${D}/usr/{bin,share/man/man1}/pdf*
+
+	for l in arabic chinese-simplified chinese-traditional cyrillic greek \
+	         hebrew japanese korean latin2 thai turkish
+	do
+		cd ${S}/../${PN}-${l}
+		
+		newdoc README README.${l}
+
+		echo >> ${D}/etc/xpdfrc
+		cat add-to-xpdfrc >> ${D}/etc/xpdfrc
+
+		insinto /usr/share/${PN}/${l}
+		doins *.unicodeMap
+
+		if [ -f *.nameToUnicode ]
+		then
+			doins *.nameToUnicode
+		fi
+
+		if [ -d CMap ]
+		then
+			doins *.cidToUnicode
+			cp -r CMap ${D}/usr/share/${PN}/${l}/
+		fi
+	done
+
+	sed -e 's#/usr/local/share/xpdf#/usr/share/xpdf#g' -i ${D}/etc/xpdfrc
+
+	make_etc_defaults /etc/xpdfrc
+}

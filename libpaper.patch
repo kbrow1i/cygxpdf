@@ -1,0 +1,165 @@
+Based on https://bugs.freebsd.org/bugzilla/show_bug.cgi?id=222002
+
+--- origsrc/xpdf-4.00/cmake-config.txt	2017-08-08 19:22:50.000000000 -0400
++++ src/xpdf-4.00/cmake-config.txt	2017-10-02 12:11:58.200991200 -0400
+@@ -79,6 +79,7 @@ option(USE_EXCEPTIONS "use C++ exception
+ option(USE_FIXEDPOINT "use fixed point (instead of floating point) arithmetic" OFF)
+ option(SPLASH_CMYK "include support for CMYK rasterization" OFF)
+ option(SPLASH_DEVICEN "include support for DeviceN rasterization" OFF)
++option(USE_LIBPAPER "use libpaper" OFF)
+ if (SPLASH_DEVICEN)
+   set(SPLASH_CMYK ON)
+ endif ()
+@@ -278,10 +279,34 @@ else()
+ endif()
+ 
+ #--- look for libpaper
+-find_library(HAVE_PAPER_H
+-             NAMES paper libpaper
+-             PATH_SUFFIXES lib64 lib
+-)
++if(USE_LIBPAPER)
++  find_library(PAPER_LIBRARY
++    NAMES paper libpaper
++    HINTS
++    ${PAPER_DIR}
++    PATHS
++    /usr/local
++    /usr/freeware
++  )
++  find_path(PAPER_INCLUDE_DIR paper.h
++    HINTS
++    ${PAPER_DIR}
++    PATHS
++    /usr/local/include
++    /usr/freeware/include
++    PATH_SUFFIXES include
++  )
++endif()
++
++if (USE_LIBPAPER)
++ if (PAPER_INCLUDE_DIR AND PAPER_LIBRARY)
++   set(HAVE_PAPER_H TRUE)
++   message(STATUS "Found libpaper: ${PAPER_LIBRARY}")
++ else ()
++  set(HAVE_PAPER_H FALSE)
++  message(STATUS "libpaper not found")
++ endif ()
++endif ()
+ 
+ #--- look for pthreads
+ find_package(Threads)
+--- origsrc/xpdf-4.00/xpdf/CMakeLists.txt	2017-08-08 19:22:50.000000000 -0400
++++ src/xpdf-4.00/xpdf/CMakeLists.txt	2017-10-02 12:11:58.208511100 -0400
+@@ -24,6 +24,10 @@ else ()
+   set(COLOR_MANAGER_SOURCE "")
+ endif ()
+ 
++if (HAVE_PAPER_H)
++ include_directories("${PAPER_INCLUDE_DIR}")
++endif ()
++ 
+ add_library(xpdf_objs OBJECT
+   AcroForm.cc
+   Annot.cc
+@@ -108,7 +112,7 @@ if (HAVE_SPLASH)
+   target_link_libraries(pdftops goo fofi splash
+                         ${FREETYPE_LIBRARY} ${FREETYPE_OTHER_LIBS}
+                         ${DTYPE_LIBRARY}
+-                        ${LCMS_LIBRARY})
++                        ${LCMS_LIBRARY} ${PAPER_LIBRARY})
+ else ()
+   add_executable(pdftops
+     $<TARGET_OBJECTS:xpdf_objs>
+@@ -116,7 +120,7 @@ else ()
+     PSOutputDev.cc
+     pdftops.cc
+   )
+-  target_link_libraries(pdftops goo fofi ${LCMS_LIBRARY})
++  target_link_libraries(pdftops goo fofi ${LCMS_LIBRARY} ${PAPER_LIBRARY})
+ endif ()
+ install(TARGETS pdftops RUNTIME DESTINATION bin)
+ install(FILES ${PROJECT_SOURCE_DIR}/doc/pdftops.1 DESTINATION man/man1)
+@@ -128,7 +132,7 @@ add_executable(pdftotext
+   TextOutputDev.cc
+   pdftotext.cc
+ )
+-target_link_libraries(pdftotext goo fofi ${LCMS_LIBRARY})
++target_link_libraries(pdftotext goo fofi ${LCMS_LIBRARY} ${PAPER_LIBRARY})
+ install(TARGETS pdftotext RUNTIME DESTINATION bin)
+ install(FILES ${PROJECT_SOURCE_DIR}/doc/pdftotext.1 DESTINATION man/man1)
+ 
+@@ -145,7 +149,7 @@ if (HAVE_SPLASH AND PNG_FOUND)
+   target_link_libraries(pdftohtml goo fofi splash
+                         ${FREETYPE_LIBRARY} ${FREETYPE_OTHER_LIBS}
+                         ${DTYPE_LIBRARY}
+-                        ${LCMS_LIBRARY} ${PNG_LIBRARIES})
++                        ${LCMS_LIBRARY} ${PNG_LIBRARIES} ${PAPER_LIBRARY})
+   install(TARGETS pdftohtml RUNTIME DESTINATION bin)
+   install(FILES ${PROJECT_SOURCE_DIR}/doc/pdftohtml.1 DESTINATION man/man1)
+ endif ()
+@@ -156,7 +160,7 @@ add_executable(pdfinfo
+   $<TARGET_OBJECTS:xpdf_objs>
+   pdfinfo.cc
+ )
+-target_link_libraries(pdfinfo goo fofi ${LCMS_LIBRARY})
++target_link_libraries(pdfinfo goo fofi ${LCMS_LIBRARY} ${PAPER_LIBRARY})
+ install(TARGETS pdfinfo RUNTIME DESTINATION bin)
+ install(FILES ${PROJECT_SOURCE_DIR}/doc/pdfinfo.1 DESTINATION man/man1)
+ 
+@@ -166,7 +170,7 @@ add_executable(pdffonts
+   $<TARGET_OBJECTS:xpdf_objs>
+   pdffonts.cc
+ )
+-target_link_libraries(pdffonts goo fofi ${LCMS_LIBRARY})
++target_link_libraries(pdffonts goo fofi ${LCMS_LIBRARY} ${PAPER_LIBRARY})
+ install(TARGETS pdffonts RUNTIME DESTINATION bin)
+ install(FILES ${PROJECT_SOURCE_DIR}/doc/pdffonts.1 DESTINATION man/man1)
+ 
+@@ -176,7 +180,7 @@ add_executable(pdfdetach
+   $<TARGET_OBJECTS:xpdf_objs>
+   pdfdetach.cc
+ )
+-target_link_libraries(pdfdetach goo fofi ${LCMS_LIBRARY})
++target_link_libraries(pdfdetach goo fofi ${LCMS_LIBRARY} ${PAPER_LIBRARY})
+ install(TARGETS pdfdetach RUNTIME DESTINATION bin)
+ install(FILES ${PROJECT_SOURCE_DIR}/doc/pdfdetach.1 DESTINATION man/man1)
+ 
+@@ -191,7 +195,7 @@ if (HAVE_SPLASH)
+   target_link_libraries(pdftoppm goo fofi splash
+                         ${FREETYPE_LIBRARY} ${FREETYPE_OTHER_LIBS}
+                         ${DTYPE_LIBRARY}
+-                        ${LCMS_LIBRARY})
++                        ${LCMS_LIBRARY} ${PAPER_LIBRARY})
+   install(TARGETS pdftoppm RUNTIME DESTINATION bin)
+   install(FILES ${PROJECT_SOURCE_DIR}/doc/pdftoppm.1 DESTINATION man/man1)
+ endif ()
+@@ -207,7 +211,7 @@ if (HAVE_SPLASH AND PNG_FOUND)
+   target_link_libraries(pdftopng goo fofi splash
+                         ${FREETYPE_LIBRARY} ${FREETYPE_OTHER_LIBS}
+                         ${DTYPE_LIBRARY}
+-                        ${LCMS_LIBRARY} ${PNG_LIBRARIES})
++                        ${LCMS_LIBRARY} ${PNG_LIBRARIES} ${PAPER_LIBRARY})
+   install(TARGETS pdftopng RUNTIME DESTINATION bin)
+   install(FILES ${PROJECT_SOURCE_DIR}/doc/pdftopng.1 DESTINATION man/man1)
+ endif ()
+@@ -219,7 +223,7 @@ add_executable(pdfimages
+   ImageOutputDev.cc
+   pdfimages.cc
+ )
+-target_link_libraries(pdfimages goo fofi ${LCMS_LIBRARY})
++target_link_libraries(pdfimages goo fofi ${LCMS_LIBRARY} ${PAPER_LIBRARY})
+ install(TARGETS pdfimages RUNTIME DESTINATION bin)
+ install(FILES ${PROJECT_SOURCE_DIR}/doc/pdfimages.1 DESTINATION man/man1)
+ 
+--- origsrc/xpdf-4.00/xpdf-qt/CMakeLists.txt	2017-08-08 19:22:50.000000000 -0400
++++ src/xpdf-4.00/xpdf-qt/CMakeLists.txt	2017-10-02 12:11:58.212001500 -0400
+@@ -82,7 +82,7 @@ if ((QT4_FOUND OR Qt5Widgets_FOUND)
+   )
+   target_link_libraries(xpdf ${QT_LIBRARIES} ${EXTRA_QT_LIBRARIES}
+                         ${FREETYPE_LIBRARY} ${FREETYPE_OTHER_LIBS}
+-                        ${DTYPE_LIBRARY} ${LCMS_LIBRARY}
++                        ${DTYPE_LIBRARY} ${LCMS_LIBRARY} ${PAPER_LIBRARY}
+                         ${CMAKE_THREAD_LIBS_INIT})
+   set_property(TARGET xpdf PROPERTY WIN32_EXECUTABLE 1)
+ 
