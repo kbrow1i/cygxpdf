@@ -1,0 +1,23 @@
+From cygwin-announce-xpdf-4.00-1 Mon Oct 09 17:21:42 2017
+From: Ken Brown <kbrown@cornell.edu>
+To: cygwin-announce@cygwin.com
+Date: Mon, 09 Oct 2017 17:21:42 -0400
+Subject: xpdf 4.00-1
+
+The following package has been uploaded to the Cygwin distribution:
+
+* xpdf-4.00-1
+
+Xpdf is an open source viewer for Portable Document Format (PDF)
+files.  (These are also sometimes called 'Acrobat' files, from the
+name of Adobe's PDF software.)  The Xpdf viewer uses the Qt
+cross-platform GUI toolkit.  The Xpdf project also includes a PDF text
+extractor, PDF-to-PostScript converter, and various other utilities.
+These are not included in the Cygwin xpdf package because poppler
+provides similar utilities.
+
+This is an upgrade to the latest upstream release.  It is the first
+release that is based on Qt.
+
+Ken Brown
+Cygwin's (new) Xpdf maintainer
