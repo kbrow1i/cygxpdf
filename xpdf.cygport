@@ -38,11 +38,10 @@ CYGCMAKE_ARGS="
 	-DSYSTEM_XPDFRC=/etc/xpdfrc
 "
 
-# PATCH_URI="
-#   xpdf.xpdfrc.patch
-# "
+PATCH_URI="xpdfrc.patch"
+PATCH_URI+=" libpaper.patch"
 
-DEPEND="libQt5Core-devel libQt5Gui-devel libpaper-devel libfreetype-devel"
+DEPEND="cmake libQt5Core-devel libQt5Gui-devel libpaper-devel libfreetype-devel"
 
 REQUIRES="libQt5Svg5"		# Needed for the toolbar icons.
 
