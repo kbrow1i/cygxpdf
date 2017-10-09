@@ -51,8 +51,12 @@ src_install() {
 	insinto	/etc
 	newins ${S}/doc/sample-xpdfrc xpdfrc
 
-	# For the following deletions see --> http://cygwin.com/ml/cygwin-apps/2012-02/msg00148.html
-	rm -fr ${D}/usr/{bin,share/man/man1}/pdf*
+	# For the following deletions see
+	# http://cygwin.com/ml/cygwin-apps/2012-02/msg00148.html.  We
+	# use 'man' instead of 'share/man' because the man pages
+	# initially get installed in /usr/man and are later moved to
+	# /usr/share/man by cygport.
+	rm -fr ${D}/usr/{bin,man/man1}/pdf*
 
 	for l in arabic chinese-simplified chinese-traditional cyrillic greek \
 	         hebrew japanese korean latin2 thai turkish
