@@ -87,4 +87,8 @@ src_install() {
 	sed -e 's#/usr/local/share/xpdf#/usr/share/xpdf#g' -i ${D}/etc/xpdfrc
 
 	make_etc_defaults /etc/xpdfrc
+
+	insinto /usr/share/icons/hicolor/scalable/apps
+	newins ${S}/xpdf-qt/xpdf-icon.svg xpdf.svg
+	make_desktop_entry xpdf XpdfReader xpdf "Viewer;Office" "" "MimeType=application/pdf;application/x-pdf;image/pdf;"
 }
