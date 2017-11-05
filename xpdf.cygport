@@ -41,6 +41,7 @@ CYGCMAKE_ARGS="
 PATCH_URI="xpdfrc.patch"
 PATCH_URI+=" libpaper.patch"
 PATCH_URI+=" xpdf-4.00-remote-2017-sep-21.patch"
+PATCH_URI+=" http://pkgs.fedoraproject.org/cgit/rpms/xpdf.git/plain/xpdf-4.00-64bit.patch"
 
 DEPEND="cmake libQt5Core-devel libQt5Gui-devel libpaper-devel libfreetype-devel"
 
