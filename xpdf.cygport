@@ -1,6 +1,6 @@
 NAME="xpdf"
 VERSION=4.00
-RELEASE=6
+RELEASE=2
 CATEGORY="X11 Doc"
 SUMMARY="An open source viewer for Portable Document Format (PDF) files"
 DESCRIPTION="Xpdf is an open source viewer for Portable Document Format (PDF)
