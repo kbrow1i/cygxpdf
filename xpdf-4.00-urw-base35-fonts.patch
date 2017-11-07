@@ -1,5 +1,5 @@
---- origsrc/xpdf-4.00/xpdf/GlobalParams.cc	2017-08-08 18:22:50.000000000 -0500
-+++ src/xpdf-4.00/xpdf/GlobalParams.cc	2017-11-06 03:18:35.636604800 -0600
+--- xpdf-4.00/xpdf/GlobalParams.cc.orig	2017-08-08 18:22:50.000000000 -0500
++++ xpdf-4.00/xpdf/GlobalParams.cc	2017-11-06 03:18:35.636604800 -0600
 @@ -78,20 +78,20 @@ static struct {
    const char *obliqueFont;	// name of font to oblique
    double obliqueFactor;		// oblique sheer factor
