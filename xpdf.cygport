@@ -14,18 +14,18 @@ provides similar utilities."
 HOMEPAGE="http://www.xpdfreader.com/"
 DOWNLOAD="https://xpdfreader-dl.s3.amazonaws.com"
 SRC_URI="
-	${DOWNLOAD}/dl/${P}.tar.gz
-	${DOWNLOAD}/dl/${PN}-arabic.tar.gz
-	${DOWNLOAD}/dl/${PN}-chinese-simplified.tar.gz
-	${DOWNLOAD}/dl/${PN}-chinese-traditional.tar.gz
-	${DOWNLOAD}/dl/${PN}-cyrillic.tar.gz
-	${DOWNLOAD}/dl/${PN}-greek.tar.gz
-	${DOWNLOAD}/dl/${PN}-hebrew.tar.gz
-	${DOWNLOAD}/dl/${PN}-japanese.tar.gz
-	${DOWNLOAD}/dl/${PN}-korean.tar.gz
-	${DOWNLOAD}/dl/${PN}-latin2.tar.gz
-	${DOWNLOAD}/dl/${PN}-thai.tar.gz
-	${DOWNLOAD}/dl/${PN}-turkish.tar.gz
+	${DOWNLOAD}/${P}.tar.gz
+	${DOWNLOAD}/${PN}-arabic.tar.gz
+	${DOWNLOAD}/${PN}-chinese-simplified.tar.gz
+	${DOWNLOAD}/${PN}-chinese-traditional.tar.gz
+	${DOWNLOAD}/${PN}-cyrillic.tar.gz
+	${DOWNLOAD}/${PN}-greek.tar.gz
+	${DOWNLOAD}/${PN}-hebrew.tar.gz
+	${DOWNLOAD}/${PN}-japanese.tar.gz
+	${DOWNLOAD}/${PN}-korean.tar.gz
+	${DOWNLOAD}/${PN}-latin2.tar.gz
+	${DOWNLOAD}/${PN}-thai.tar.gz
+	${DOWNLOAD}/${PN}-turkish.tar.gz
 "
 
 inherit cmake
