@@ -45,7 +45,7 @@ PATCH_URI+=" xpdf-4.00-remote-2017-sep-21.patch"
 PATCH_URI+=" http://pkgs.fedoraproject.org/cgit/rpms/xpdf.git/plain/xpdf-4.00-64bit.patch"
 PATCH_URI+=" http://pkgs.fedoraproject.org/cgit/rpms/xpdf.git/plain/xpdf-4.00-urw-base35-fonts.patch"
 
-DEPEND="cmake libQt5Core-devel libQt5Gui-devel libpaper-devel libfreetype-devel"
+DEPEND="cmake libQt5Core-devel libQt5Gui-devel libpaper-devel libfreetype-devel ninja"
 
 REQUIRES="libQt5Svg5"		# Needed for the toolbar icons.
 REQUIRES+=" urw-base35-fonts"
