@@ -12,19 +12,20 @@ These are not included in the Cygwin xpdf package because poppler
 provides similar utilities."
 
 HOMEPAGE="http://www.xpdfreader.com/"
+DOWNLOAD="https://xpdfreader-dl.s3.amazonaws.com"
 SRC_URI="
-	${HOMEPAGE}/dl/${P}.tar.gz
-	${HOMEPAGE}/dl/${PN}-arabic.tar.gz
-	${HOMEPAGE}/dl/${PN}-chinese-simplified.tar.gz
-	${HOMEPAGE}/dl/${PN}-chinese-traditional.tar.gz
-	${HOMEPAGE}/dl/${PN}-cyrillic.tar.gz
-	${HOMEPAGE}/dl/${PN}-greek.tar.gz
-	${HOMEPAGE}/dl/${PN}-hebrew.tar.gz
-	${HOMEPAGE}/dl/${PN}-japanese.tar.gz
-	${HOMEPAGE}/dl/${PN}-korean.tar.gz
-	${HOMEPAGE}/dl/${PN}-latin2.tar.gz
-	${HOMEPAGE}/dl/${PN}-thai.tar.gz
-	${HOMEPAGE}/dl/${PN}-turkish.tar.gz
+	${DOWNLOAD}/dl/${P}.tar.gz
+	${DOWNLOAD}/dl/${PN}-arabic.tar.gz
+	${DOWNLOAD}/dl/${PN}-chinese-simplified.tar.gz
+	${DOWNLOAD}/dl/${PN}-chinese-traditional.tar.gz
+	${DOWNLOAD}/dl/${PN}-cyrillic.tar.gz
+	${DOWNLOAD}/dl/${PN}-greek.tar.gz
+	${DOWNLOAD}/dl/${PN}-hebrew.tar.gz
+	${DOWNLOAD}/dl/${PN}-japanese.tar.gz
+	${DOWNLOAD}/dl/${PN}-korean.tar.gz
+	${DOWNLOAD}/dl/${PN}-latin2.tar.gz
+	${DOWNLOAD}/dl/${PN}-thai.tar.gz
+	${DOWNLOAD}/dl/${PN}-turkish.tar.gz
 "
 
 inherit cmake
