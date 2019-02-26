@@ -1,5 +1,5 @@
---- origsrc/xpdf-4.00/doc/sample-xpdfrc	2017-08-08 19:22:50.000000000 -0400
-+++ src/xpdf-4.00/doc/sample-xpdfrc	2017-11-06 07:51:02.247819100 -0500
+--- origsrc/xpdf-4.01/doc/sample-xpdfrc	2019-02-18 13:24:19.000000000 -0500
++++ src/xpdf-4.01/doc/sample-xpdfrc	2019-02-25 15:40:19.565550400 -0500
 @@ -4,7 +4,7 @@
  #
  # The Xpdf tools look for a config file in two places:
@@ -44,7 +44,7 @@
  
  # If you need to display PDF files that refer to non-embedded fonts,
  # you should add one or more fontDir options to point to the
-@@ -50,19 +50,20 @@
+@@ -50,7 +50,8 @@
  # .pfb, .ttf, and .ttc files in those directories (other files will
  # simply be ignored).
  
@@ -54,21 +54,16 @@
  
  #----- PostScript output control
  
- # Set the default PostScript file or command.
- 
--#psFile			"|lpr -Pmyprinter"
-+#psFile			"/tmp/xpdf2ps.ps"
- 
- # Set the default PostScript paper size -- this can be letter, legal,
+@@ -58,7 +59,7 @@
  # A4, or A3.  You can also specify a paper size as width and height
  # (in points).
  
 -#psPaperSize		letter
-+psPaperSize		A4
++#psPaperSize		A4
  
  #----- text output control
  
-@@ -75,7 +76,7 @@
+@@ -71,7 +72,7 @@
  # Choose the end-of-line convention for multi-line copy-and-past and
  # for pdftotext output.  The available options are unix, mac, and dos.
  

@@ -1,12 +1,13 @@
-From cygwin-announce-xpdf-4.00-2 Wed Nov 15 13:48:24 2017
+From cygwin-announce-xpdf-4.01-1 Tue Feb 26 10:22:31 2019
 From: Ken Brown <kbrown@cornell.edu>
 To: cygwin-announce@cygwin.com
-Date: Wed, 15 Nov 2017 13:48:24 -0500
-Subject: xpdf 4.00-2
+Date: Tue, 26 Feb 2019 10:22:31 -0500
+Message-Id: <20190226102231.27867-1-kbrown@cornell.edu>
+Subject: xpdf 4.01-1
 
 The following package has been uploaded to the Cygwin distribution:
 
-* xpdf-4.00-2
+* xpdf-4.01-1
 
 Xpdf is an open source viewer for Portable Document Format (PDF)
 files.  (These are also sometimes called 'Acrobat' files, from the
@@ -16,16 +17,12 @@ extractor, PDF-to-PostScript converter, and various other utilities.
 These are not included in the Cygwin xpdf package because poppler
 provides similar utilities.
 
-This is a rebuild that fixes a font problem (thanks, Yaakov):
+This is an update to the latest upstream release.  It is primarily a
+bugfix release.  See
 
-  https://cygwin.com/ml/cygwin/2017-11/msg00119.html
+  https://forum.xpdfreader.com/viewtopic.php?f=3&t=41250
 
-I've also applied a patch from
-
-  https://forum.xpdfreader.com/viewtopic.php?f=1&t=23#p60
-
-that restores the '-remote' option, although with slightly different
-syntax than it had before.
+for more details.
 
 Ken Brown
 Cygwin's Xpdf maintainer
