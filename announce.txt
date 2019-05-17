@@ -1,13 +1,13 @@
-From cygwin-announce-xpdf-4.01-1 Tue Feb 26 10:22:31 2019
+From cygwin-announce-xpdf-4.01.01-1 Fri May 17 17:40:15 2019
 From: Ken Brown <kbrown@cornell.edu>
 To: cygwin-announce@cygwin.com
-Date: Tue, 26 Feb 2019 10:22:31 -0500
-Message-Id: <20190226102231.27867-1-kbrown@cornell.edu>
-Subject: xpdf 4.01-1
+Date: Fri, 17 May 2019 17:40:15 -0400
+Message-Id: <20190517174015.7686-1-kbrown@cornell.edu>
+Subject: xpdf 4.01.01-1
 
 The following package has been uploaded to the Cygwin distribution:
 
-* xpdf-4.01-1
+* xpdf-4.01.01-1
 
 Xpdf is an open source viewer for Portable Document Format (PDF)
 files.  (These are also sometimes called 'Acrobat' files, from the
@@ -17,10 +17,10 @@ extractor, PDF-to-PostScript converter, and various other utilities.
 These are not included in the Cygwin xpdf package because poppler
 provides similar utilities.
 
-This is an update to the latest upstream release.  It is primarily a
-bugfix release.  See
+This is an update to the latest upstream release.  It is a bugfix
+release.  See
 
-  https://forum.xpdfreader.com/viewtopic.php?f=3&t=41250
+  https://forum.xpdfreader.com/viewtopic.php?f=3&t=41268
 
 for more details.
 

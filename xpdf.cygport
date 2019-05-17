@@ -1,5 +1,5 @@
 NAME="xpdf"
-VERSION=4.01
+VERSION=4.01.01
 RELEASE=1
 CATEGORY="X11 Doc"
 SUMMARY="An open source viewer for Portable Document Format (PDF) files"
